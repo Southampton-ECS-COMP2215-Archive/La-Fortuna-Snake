@@ -19,7 +19,7 @@ int obs [24][32];
 struct Point tail [max_length];
 int tail_tail, tail_head;
 int grow;
-int goalx, goaly;
+unsigned int goalx, goaly;
 int score;
 char* scorestring;
 char scorebuffer [5];
@@ -30,7 +30,7 @@ void get_high_score(){
 	f_mount(&FatFs, "", 0);
 	cli();
 	if (f_open(&File, "high.txt", FA_WRITE | FA_READ | FA_OPEN_ALWAYS) == FR_OK) {
-		f_gets(&highscore, 5, &File);
+		f_gets(&highscore[0], 5, &File);
 		if(atoi(highscore) < score){
 			f_lseek(&File, 0);
 			f_printf(&File, scorestring);
@@ -74,7 +74,7 @@ void new_goal(void){
 	if (score > 5){
 		
 		if(score % 2 == 0){
-			int badx, bady;
+			unsigned int badx, bady;
 			
 			badx = rand() % 32;
 			bady = (rand() % 23) + 1;
@@ -143,7 +143,7 @@ int check_collisions(){
 	}
 }
 
-void move_snake(){
+int move_snake(int){
 
 	if (direction == 2) {
 		last_head = head;
@@ -188,6 +188,7 @@ void move_snake(){
 		check_collisions();
 		obs[head.top/10][head.left/10] = 1;
 	}
+	return 0;
 }
 
 void reset_game(void){
@@ -246,7 +247,7 @@ int check_switches(int state) {
 	return state;
 }
 
-void main(void) {
+int main(void) {
 
 	os_init();
 	set_frame_rate_hz(61); /* > 60 Hz  (KPZ 30.01.2015) */
@@ -259,5 +260,5 @@ void main(void) {
 	
 	sei();
     for(;;){}
-    
+	return 0;
 }

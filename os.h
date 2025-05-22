@@ -34,7 +34,7 @@
 #define LED_TOGGLE  PINB  |=  _BV(PINB7)
 
 
-FATFS FatFs;
+extern FATFS FatFs;
 
 void os_init(void);
 

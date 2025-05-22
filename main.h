@@ -24,6 +24,6 @@ void new_goal();
 void repaint_tail();
 void check_goal();
 int check_collisions();
-void move_snake();
+int move_snake(int);
 int check_switches(int state);
-void main(void);
+int main(void);

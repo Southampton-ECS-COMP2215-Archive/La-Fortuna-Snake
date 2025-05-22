@@ -117,7 +117,7 @@ FRESULT audio_load(FIL* File) {
 	uint8_t status; /* FRESULT of the buffer read */
 	
 	f_lseek(File,44);
-	f_read(File, &pcm_samples, BUFFER_SIZE ,&read);
+	f_read(File, (void*)&pcm_samples, BUFFER_SIZE ,&read);
 	
 	pwm_init();
 	playing = 1;
@@ -126,7 +126,7 @@ FRESULT audio_load(FIL* File) {
 		
 		/* If at end of buffer, read more of file */
 		if(sample >= BUFFER_SIZE) {
-			status = f_read(File, &pcm_samples, BUFFER_SIZE ,&read);
+			status = f_read(File, (void*)&pcm_samples, BUFFER_SIZE ,&read);
 			if(status) {
 				audio_close();
 				return status;

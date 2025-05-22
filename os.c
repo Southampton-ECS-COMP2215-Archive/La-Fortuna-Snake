@@ -12,6 +12,8 @@
 #include "rios.h"
 #include "ruota.h"
 
+FATFS FatFs;
+
 void os_init(void) {
 	/* 8MHz clock, no prescaling (DS, p. 48) */
     CLKPR = (1 << CLKPCE);
